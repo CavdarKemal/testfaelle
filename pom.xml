@@ -28,7 +28,7 @@
 	</distributionManagement>
 	<properties>
 		<!-- Branch für Distribution-Classifier (überschreibbar mit -Dtestfaelle.branch=xyz) -->
-		<testfaelle.branch>master</testfaelle.branch>
+		<testfaelle.branch>TEST-01</testfaelle.branch>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<buildNummer>manual-build-by-${user.name}</buildNummer>
