@@ -1,0 +1,34 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0
+                              http://maven.apache.org/xsd/assembly-2.2.0.xsd">
+
+    <!-- Branch wird über Property gesteuert: -Dtestfaelle.branch=xyz -->
+    <id>distribution-${testfaelle.branch}</id>
+
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+        <!-- ARCHIV-BESTAND mit allen Phasen (PHASE-1, PHASE-2, etc.) -->
+        <fileSet>
+            <directory>${basedir}/../test_set/ARCHIV-BESTAND</directory>
+            <outputDirectory>/ARCHIV-BESTAND</outputDirectory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+        <!-- REF-EXPORTS mit allen Phasen und Kandidaten -->
+        <fileSet>
+            <directory>${basedir}/../test_set/REF-EXPORTS</directory>
+            <outputDirectory>/REF-EXPORTS</outputDirectory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+</assembly>
