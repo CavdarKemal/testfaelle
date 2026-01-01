@@ -31,7 +31,7 @@
 		<buildNummer>manual-build-by-${user.name}</buildNummer>
 		<mavenVersion>3.0.3</mavenVersion>
 		<!-- Branch für Distribution-Classifier (überschreibbar mit -Dtestfaelle.branch=xyz) -->
-		<testfaelle.branch>main</testfaelle.branch>
+		<testfaelle.branch>master</testfaelle.branch>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<maven-jar-plugin.version>2.3.1</maven-jar-plugin.version>
@@ -106,9 +106,9 @@
 		</profile>
 		<!-- Branch-Profile für Distribution -->
 		<profile>
-			<id>branch-main</id>
+			<id>branch-master</id>
 			<properties>
-				<testfaelle.branch>main</testfaelle.branch>
+				<testfaelle.branch>master</testfaelle.branch>
 			</properties>
 		</profile>
 		<profile>
