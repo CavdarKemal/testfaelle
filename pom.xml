@@ -16,6 +16,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Default für JaCoCo argLine (wird von JaCoCo überschrieben wenn aktiv) -->
+        <argLine></argLine>
       <!--Default fuer die Build-Nummer beim lokalen Test der Auslieferung -->
         <buildNummer>manual-build-by-${user.name}</buildNummer>
 
@@ -70,7 +72,7 @@
                            <include>**/*Test.java</include>
                            <include>**/Test*.java</include>
                         </includes>
-                        <argLine>-Duser.language=de -Duser.region=DE -Xmx2048m -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                        <argLine>@{argLine} -Duser.language=de -Duser.region=DE -Xmx2048m -Dfile.encoding=${project.build.sourceEncoding}</argLine>
                      </configuration>
                   </plugin>
                </plugins>
@@ -91,7 +93,7 @@
                         <excludes>
                            <exclude>**/*IntegrationTest*.java</exclude>
                         </excludes>
-                        <argLine>-Duser.language=de -Duser.region=DE -Xmx1024m -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                        <argLine>@{argLine} -Duser.language=de -Duser.region=DE -Xmx1024m -Dfile.encoding=${project.build.sourceEncoding}</argLine>
                      </configuration>
                   </plugin>
                </plugins>
