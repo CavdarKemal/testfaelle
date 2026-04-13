@@ -13,10 +13,177 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Default fuer die Build-Nummer beim lokalen Test der Auslieferung -->
+      <!--Default fuer die Build-Nummer beim lokalen Test der Auslieferung -->
         <buildNummer>manual-build-by-${user.name}</buildNummer>
 
-        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
+      <mavenVersion>3.0.3</mavenVersion>
+      <maven.compiler.source>11</maven.compiler.source>
+      <maven.compiler.target>11</maven.compiler.target>
+      <maven-jar-plugin.version>2.3.1</maven-jar-plugin.version>
+      <maven-release-plugin.version>2.3.2</maven-release-plugin.version>
+      <maven-toolchain-version>2.0.9</maven-toolchain-version>
+      <maven-enforcer-plugin.version>3.0.0-M2</maven-enforcer-plugin.version>
+      <maven-source-plugin.version>2.1.2</maven-source-plugin.version>
+      <maven-compiler-plugin.version>2.3.1</maven-compiler-plugin.version>
+      <maven-dependency-plugin.version>2.4</maven-dependency-plugin.version>
+      <maven-assembly-plugin.version>2.3</maven-assembly-plugin.version>
+      <maven-surefire-plugin.version>2.12</maven-surefire-plugin.version>
+      <maven-resources-plugin.version>2.5</maven-resources-plugin.version>
+      <maven-deploy-plugin.version>2.8.1</maven-deploy-plugin.version>
+      <maven-install-plugin.version>2.3.1</maven-install-plugin.version>
+      <maven-jaxb2-plugin.version>0.8.3</maven-jaxb2-plugin.version>
+
+      <slf4jVersion>2.0.6</slf4jVersion>
+      <jUnitVersion>4.11</jUnitVersion>
+      <testutils_cte.version>2.0.4</testutils_cte.version>
+      <easyMockVersion>3.2</easyMockVersion> <!-- die neue Version 3.3.1 verlangt cglib! -->
+
+      <commons-collections4.version>4.2</commons-collections4.version>
+      <commons-lang-version>2.6</commons-lang-version>
+      <commons-io-version>2.4</commons-io-version>
+      <woodstox.version>4.2.0</woodstox.version>
+
+      <archivbestand30_jaxb.version>2.0.1</archivbestand30_jaxb.version>
+      <jaxb-api.version>2.3.1</jaxb-api.version>
+      <activation.version>1.1.1</activation.version>
+
+      <oracledb-version>11.2.0.4_jdk6</oracledb-version>
+      <dateparser.version>1.0.11</dateparser.version>
     </properties>
+
+   <profiles>
+      <profile>
+         <id>itest</id>
+         <activation>
+            <activeByDefault>false</activeByDefault>
+         </activation>
+         <build>
+            <pluginManagement>
+               <plugins>
+                  <plugin>
+                     <artifactId>maven-surefire-plugin</artifactId>
+                     <configuration>
+                        <includes>
+                           <include>**/*Test.java</include>
+                           <include>**/Test*.java</include>
+                        </includes>
+                        <argLine>-Duser.language=de -Duser.region=DE -Xmx2048m -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                     </configuration>
+                  </plugin>
+               </plugins>
+            </pluginManagement>
+         </build>
+      </profile>
+      <profile>
+         <id>default</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
+         <build>
+            <pluginManagement>
+               <plugins>
+                  <plugin>
+                     <artifactId>maven-surefire-plugin</artifactId>
+                     <configuration>
+                        <excludes>
+                           <exclude>**/*IntegrationTest*.java</exclude>
+                        </excludes>
+                        <argLine>-Duser.language=de -Duser.region=DE -Xmx1024m -Dfile.encoding=${project.build.sourceEncoding}</argLine>
+                     </configuration>
+                  </plugin>
+               </plugins>
+            </pluginManagement>
+         </build>
+      </profile>
+   </profiles>
+
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>oracledb</groupId>
+            <artifactId>oracledb</artifactId>
+            <version>${oracledb-version}</version>
+         </dependency>
+         <dependency>
+            <groupId>com.github.sisyphsu</groupId>
+            <artifactId>dateparser</artifactId>
+            <version>${dateparser.version}</version>
+            <scope>test</scope> <!-- nur im Test ! -->
+         </dependency>
+         <!-- JAXB / AB30 -->
+         <dependency>
+            <groupId>schnittstellen.archivbestand30_jaxb</groupId>
+            <artifactId>ab30_jaxb_util</artifactId>
+            <version>${archivbestand30_jaxb.version}</version>
+            <scope>test</scope> <!-- nur im Test ! -->
+         </dependency>
+         <dependency>
+            <groupId>schnittstellen.archivbestand30_jaxb</groupId>
+            <artifactId>ab30_xsd</artifactId>
+            <version>${archivbestand30_jaxb.version}</version>
+            <scope>test</scope> <!-- nur im Test ! -->
+         </dependency>
+         <dependency>
+            <groupId>schnittstellen.archivbestand30_jaxb</groupId>
+            <artifactId>treevisitor</artifactId>
+            <version>${archivbestand30_jaxb.version}</version>
+            <scope>test</scope> <!-- nur im Test ! -->
+         </dependency>
+         <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons-lang-version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>${commons-collections4.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io-version}</version>
+         </dependency>
+         <dependency>
+            <groupId>testutils_cte</groupId>
+            <artifactId>junit4rules</artifactId>
+            <version>${testutils_cte.version}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>testutils_cte</groupId>
+            <artifactId>wisermailrule</artifactId>
+            <version>${testutils_cte.version}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>testutils_cte</groupId>
+            <artifactId>log4j12appenders</artifactId>
+            <version>${testutils_cte.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-reload4j</artifactId>
+            <version>${slf4jVersion}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4jVersion}</version>
+         </dependency>
+         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${jUnitVersion}</version>
+            <scope>test</scope>
+         </dependency>
+         <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>${easyMockVersion}</version>
+            <scope>test</scope>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
 
 </project>

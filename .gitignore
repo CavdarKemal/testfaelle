@@ -1,20 +1,19 @@
-# Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-
-# IDE
-.idea/
+*.log
+*.log.*
 *.iml
-*.ipr
 *.iws
-.project
-.classpath
-.settings/
+*.ipr
+*.idea
+*.settings
+*.metadata
+*.recommenders
+target/
+MODIFIED/
+*.project
+*.classpath
 
-# OS
-.DS_Store
-Thumbs.db
+.hg 
+.target 
+.hgignore
+
+/ZWEI_PHASEN
