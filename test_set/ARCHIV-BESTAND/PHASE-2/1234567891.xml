@@ -1,4 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<arc:element>
-	<arc:number>1234567891</arc:number>
-</arc:element>
+<?xml version="1.0" encoding="UTF-8"?><arc:archivbestand xmlns:arc="http://www.creditreform.de/crefoteam/archivbestandv3_0">
+	<arc:steuerungsdaten>
+		<arc:crefonummer>1234567891</arc:crefonummer>
+		<arc:firma>true</arc:firma>
+		<arc:clz-eigner-vc>215</arc:clz-eigner-vc>
+		<arc:land-fachlich>1</arc:land-fachlich>
+		<arc:personenstatus>5</arc:personenstatus>
+		<arc:personenstatus-seit>
+			<arc:jahr>2022</arc:jahr>
+			<arc:monat>1</arc:monat>
+			<arc:tag>24</arc:tag>
+		</arc:personenstatus-seit>
+		<arc:vorraetig-bis>2099-01-15</arc:vorraetig-bis>
+		<arc:letzte-archivaenderung>2022-01-24T15:23:06.388</arc:letzte-archivaenderung>
+		<arc:anstehende-recherche>false</arc:anstehende-recherche>
+		<arc:anzahl-auskuenfte>0</arc:anzahl-auskuenfte>
+		<arc:anzahl-telefonauskuenfte>0</arc:anzahl-telefonauskuenfte>
+		<arc:letzte-manuelle-archivaenderung>2022-01-24T15:23:06.388</arc:letzte-manuelle-archivaenderung>
+		<arc:provisorisch>false</arc:provisorisch>
+		<arc:erfassung>2022-01-24</arc:erfassung>
+		<arc:anzahl-nachtragspflichtige-auftraege>0</arc:anzahl-nachtragspflichtige-auftraege>
+		<arc:ctb-aktiv>true</arc:ctb-aktiv>
+	</arc:steuerungsdaten>
+	<arc:kapitel-firmenidentifikation>
+		<arc:anschrift>
+			<arc:name1>p30-001</arc:name1>
+			<arc:name2>pos</arc:name2>
+			<arc:name3>GmbH</arc:name3>
+			<arc:adresse>
+				<arc:land>1</arc:land>
+				<arc:plz>21684</arc:plz>
+				<arc:ort>Ag</arc:ort>
+				<arc:strasse>Fel</arc:strasse>
+				<arc:hausnummer>2</arc:hausnummer>
+				<arc:herkunft-qualitaet>
+					<arc:zeitpunkt>2022-01-24T15:20:46+01:00</arc:zeitpunkt>
+				</arc:herkunft-qualitaet>
+			</arc:adresse>
+		</arc:anschrift>
+		<arc:firmierung>pos  GmbH</arc:firmierung>
+	</arc:kapitel-firmenidentifikation>
+</arc:archivbestand>

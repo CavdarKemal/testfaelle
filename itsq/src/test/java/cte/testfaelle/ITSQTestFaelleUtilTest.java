@@ -28,33 +28,11 @@ public class ITSQTestFaelleUtilTest {
     }
 
     @Test
-    public void getGetTestCustomerBDR() {
-        TimelineLogger.info(getClass(), "================== getGetTestCustomer BDR ==================");
-        final TestCustomer testCustomer = cut.getTestCustomer("BDR", TestSupportClientKonstanten.TEST_PHASE.PHASE_2);
+    public void getGetTestCustomerC01() {
+        TimelineLogger.info(getClass(), "================== getGetTestCustomer co1 ==================");
+        final TestCustomer testCustomer = cut.getTestCustomer("C01", TestSupportClientKonstanten.TEST_PHASE.PHASE_2);
         checkTestCustomer(testCustomer);
-        TimelineLogger.info(getClass(), "------------------ getGetTestCustomer BDR ------------------");
-    }
-
-    @Test
-    public void getGetTestCustomerINSO1() {
-        TimelineLogger.info(getClass(), "================== getGetTestCustomer INSO_TEST-TOOL ==================");
-        final TestCustomer testCustomer = cut.getTestCustomer("INSO_TEST-TOOL", TestSupportClientKonstanten.TEST_PHASE.PHASE_2);
-        if (testCustomer.toString().contains("INSO")) {
-            testCustomer.setCustomerKey("INSO");
-        }
-        checkTestCustomer(testCustomer);
-        TimelineLogger.info(getClass(), "------------------ getGetTestCustomer INSO_TEST-TOOL ------------------");
-    }
-
-    @Test
-    public void getGetTestCustomerINSO() {
-        TimelineLogger.info(getClass(), "================== getGetTestCustomer INSO_KUNDENPLZ ==================");
-        final TestCustomer testCustomer = cut.getTestCustomer("INSO_KUNDENPLZ", TestSupportClientKonstanten.TEST_PHASE.PHASE_2);
-        if (testCustomer.toString().contains("INSO")) {
-            testCustomer.setCustomerKey("INSO");
-        }
-        checkTestCustomer(testCustomer);
-        TimelineLogger.info(getClass(), "------------------ getGetTestCustomer INSO_KUNDENPLZ ------------------");
+        TimelineLogger.info(getClass(), "------------------ getGetTestCustomer C01 ------------------");
     }
 
     @Test

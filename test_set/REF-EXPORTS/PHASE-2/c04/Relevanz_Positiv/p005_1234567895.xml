@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><bis:bip_stammdatenexport xmlns:bis="http://www.creditreform.de/crefoteam/bip/2011/12" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <bis:bip_stammdaten>
         <bis:daten-bzgl-crefo>
-            <bis:crefonummer>1234567890</bis:crefonummer>
+            <bis:crefonummer>1234567895</bis:crefonummer>
             <bis:crefo-einstufung>STAMMCREFO</bis:crefo-einstufung>
             <bis:firma>true</bis:firma>
             <bis:provisorisch>false</bis:provisorisch>
