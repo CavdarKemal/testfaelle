@@ -21,6 +21,15 @@
 		<arc:anzahl-nachtragspflichtige-auftraege>0</arc:anzahl-nachtragspflichtige-auftraege>
 		<arc:ctb-aktiv>true</arc:ctb-aktiv>
 	</arc:steuerungsdaten>
+	<arc:kapitel-firmenbeteiligte>
+		<arc:firmenbeteiligter>
+			<arc:verflechtungsinfo>
+				<arc:beteiligteneigenschaft>1</arc:beteiligteneigenschaft>
+				<arc:aktiv>true</arc:aktiv>
+			</arc:verflechtungsinfo>
+			<arc:crefonummer-beteiligter>1234567892</arc:crefonummer-beteiligter>
+		</arc:firmenbeteiligter>
+	</arc:kapitel-firmenbeteiligte>
 	<arc:kapitel-firmenidentifikation>
 		<arc:anschrift>
 			<arc:name1>p30-001</arc:name1>

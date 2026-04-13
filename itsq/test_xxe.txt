@@ -1,0 +1,2 @@
+XXE Test Content - This file should NOT be included in the parsed XML.
+If you see this content in the XML output, XXE attack was successful.

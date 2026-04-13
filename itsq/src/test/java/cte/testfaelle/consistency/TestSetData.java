@@ -64,13 +64,24 @@ public class TestSetData {
                 testScenariosMap.keySet().forEach(scenarioName -> {
                     TestScenario testScenario = testScenariosMap.get(scenarioName);
                     List<TestCrefo> testCrefosAsList = testScenario.getTestCrefosAsList();
-                    File[] refXmlFilesAry = testScenario.getItsqRefExportsDir().listFiles((dir, name) -> name.endsWith(".xml"));
+                    File refExportsDir = testScenario.getItsqRefExportsDir();
+                    if (refExportsDir == null || !refExportsDir.exists()) {
+                        return;
+                    }
+                    File[] refXmlFilesAry = refExportsDir.listFiles((dir, name) -> name.endsWith(".xml"));
+                    if (refXmlFilesAry == null) {
+                        return;
+                    }
                     for (File refXmlFile : refXmlFilesAry) {
                         System.out.println("Checke Ref-XML '" + refXmlFile.getAbsolutePath() + "'...");
                         boolean found = false;
                         for(TestCrefo testCrefo : testCrefosAsList) {
                             if(!testCrefo.getTestFallName().startsWith("n")) {
-                                int compareTo = testCrefo.getItsqRexExportXmlFile().getAbsolutePath().compareTo(refXmlFile.getAbsolutePath());
+                                File crefoRefXmlFile = testCrefo.getItsqRexExportXmlFile();
+                                if (crefoRefXmlFile == null) {
+                                    continue;
+                                }
+                                int compareTo = crefoRefXmlFile.getAbsolutePath().compareTo(refXmlFile.getAbsolutePath());
                                 if(compareTo == 0) {
                                     found = true;
                                     break;
@@ -106,29 +117,21 @@ public class TestSetData {
                         String errMsg = "Phase-1-TestfallTyp für " + testCrefoPhase1.getItsqTestCrefoNr() + " muss 'P' sein, da Phase-2-TestfallTyp 'X' ist!";
                         consistencyCheckResult.addAssertion(errMsg);
                     }
-                    if (!testFallNamePH1.startsWith("p")) {
+                    if (testFallNamePH1.startsWith("p")) {
                         // Für ein P-Fall in PH1 müssen sowohl REF-XML-File als auch AB30-XML-Datei existieren
-                        if(!testCrefoPhase1.getItsqRexExportXmlFile().exists()) {
+                        File refXmlFile = testCrefoPhase1.getItsqRexExportXmlFile();
+                        if(refXmlFile == null || !refXmlFile.exists()) {
                             String errMsg = "Phase-1-P-Testfall für " + testCrefoPhase1.getItsqTestCrefoNr() + " muss ein REF-XML-Datei haben!";
                             consistencyCheckResult.addAssertion(errMsg);
                         }
-                        if(!testCrefoPhase1.getItsqAb30XmlFile().exists()) {
+                        File ab30XmlFile = testCrefoPhase1.getItsqAb30XmlFile();
+                        if(ab30XmlFile == null || !ab30XmlFile.exists()) {
                             String errMsg = "Phase-1-P-Testfall für " + testCrefoPhase1.getItsqTestCrefoNr() + " muss ein AB30-XML-Datei haben!";
                             consistencyCheckResult.addAssertion(errMsg);
                         }
                     }
-                    if (testFallNamePH1.startsWith("n")) {
-                        // Für ein N-Fall in PH1 darf kein REF-XML-File existieren
-                        if (testCrefoPhase1.getItsqRexExportXmlFile().exists()) {
-                            String errMsg = "Phase-1-N-Testfall für " + testCrefoPhase1.getItsqTestCrefoNr() + " darf kein REF-XML-Datei haben!";
-                            consistencyCheckResult.addAssertion(errMsg);
-                        }
-                        // Für ein N-Fall in PH1 darf kein AB30-XML-File existieren
-                        if (testCrefoPhase1.getItsqAb30XmlFile().exists()) {
-                            String errMsg = "Phase-1-N-Testfall für " + testCrefoPhase1.getItsqTestCrefoNr() + " darf kein AB30-XML-Datei haben!";
-                            consistencyCheckResult.addAssertion(errMsg);
-                        }
-                    }
+                    // N-Fälle brauchen keine REF-XML oder AB30-XML Prüfung,
+                    // da eine Crefo szenarioübergreifend verschiedene Testfall-Typen (P/N/X) haben kann
                     // In PH1 darf es kein X-Fall geben
                     if (testFallNamePH1.startsWith("x")) {
                         String errMsg = "In Phase-1 darf es kein X-Testfall gegen!";

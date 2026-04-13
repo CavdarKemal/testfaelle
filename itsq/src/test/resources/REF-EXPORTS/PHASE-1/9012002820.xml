@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<abf-firmen-export xmlns="http://www.creditreform.de/crefoteam/cte_abf/2017/07">
+    <abf-firmen-daten>
+        <steuerungs-daten>
+            <crefonummer>9012002820</crefonummer>
+            <eigner-vc>901</eigner-vc>
+            <land-iso-code>AT</land-iso-code>
+            <firmenstatus>aktiv</firmenstatus>
+        </steuerungs-daten>
+        <kapitel-firmenidentifikation>
+            <firmierung>Blup GmbH</firmierung>
+            <anschrift>
+                <land-iso-code>AT</land-iso-code>
+                <plz>6840</plz>
+                <ort>Götzissf</ort>
+                <strasse>Drr Straße</strasse>
+                <hausnummer>9</hausnummer>
+                <name1> Kachelofen-</name1>
+                <name2>bistan GmbH</name2>
+            </anschrift>
+        </kapitel-firmenidentifikation>
+        <kapitel-beteiligte>
+            <firmenbeteiligter>
+                <crefonummer-beteiligter>9012002821</crefonummer-beteiligter>
+                <verflechtungsinfo>
+                    <beteiligteneigenschaft>Geschäftsführer</beteiligteneigenschaft>
+                    <beteiligt-seit jahr="2004" monat="5" tag="15"/>
+                    <vertretungsbefugnis>
+                        <art>alleinvertretungsberechtigt</art>
+                    </vertretungsbefugnis>
+                </verflechtungsinfo>
+                <datum-aenderung>2012-12-12+01:00</datum-aenderung>
+            </firmenbeteiligter>
+        </kapitel-beteiligte>
+        <kapitel-rechtsform-und-gruendung>
+            <datum-gruendung genauigkeit="EXAKT" jahr="2004" monat="2" tag="26"/>
+            <aktuelle-rechtsform>
+                <bezeichnung>Gesellschaft mit beschränkter Haftung</bezeichnung>
+                <schluessel-alte-welt>10</schluessel-alte-welt>
+                <kurzname-rechtsform>Ges.m.b.H.</kurzname-rechtsform>
+            </aktuelle-rechtsform>
+            <erste-rechtsform>
+                <bezeichnung>Gesellschaft mit beschränkter Haftung</bezeichnung>
+                <schluessel-alte-welt>10</schluessel-alte-welt>
+                <kurzname-rechtsform>Ges.m.b.H.</kurzname-rechtsform>
+            </erste-rechtsform>
+            <geschaeftstaetig-seit genauigkeit="EXAKT" jahr="2004" monat="2" tag="26"/>
+        </kapitel-rechtsform-und-gruendung>
+        <kapitel-handelsregister>
+            <register-aufnahme>2004-05-15+02:00</register-aufnahme>
+            <amtsgericht>
+                <bezeichnung>Feldkirch</bezeichnung>
+                <land-iso-code>AT</land-iso-code>
+                <plz>6800</plz>
+                <ort>Feldkirch</ort>
+            </amtsgericht>
+            <registerart>FN</registerart>
+            <registernummer>34562436243 X- y</registernummer>
+            <letzter-eintrag>2015-06-03+02:00</letzter-eintrag>
+        </kapitel-handelsregister>
+    </abf-firmen-daten>
+</abf-firmen-export>
