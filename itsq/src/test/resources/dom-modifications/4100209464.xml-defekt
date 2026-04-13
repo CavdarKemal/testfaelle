@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<arc:archivbestand xmlns:arc="http://www.creditreform.de/crefoteam/archivbestandv3_0">
+   <arc:steuerungsdaten>
+      <arc:crefonummer>4100209464</arc:crefonummer>
+      <arc:firma>true</arc:firma>
+      <arc:clz-eigner-vc>411</arc:clz-eigner-vc>
+      <arc:land-fachlich>1</arc:land-fachlich>
+      <arc:personenstatus>1</arc:personenstatus>
+      <arc:vorraetig-bis>2021-03-01+01:00<?SET_AGE_YEARS 2?></arc:vorraetig-bis>
+      <arc:letzte-archivaenderung><?ILLEGALE_INSTRUKTION 3?>2017-03-02T05:02:11.083+01:00</arc:letzte-archivaenderung>
+      <arc:anstehende-recherche>false</arc:anstehende-recherche>
+      <arc:anzahl-auskuenfte>0</arc:anzahl-auskuenfte>
+      <arc:anzahl-telefonauskuenfte>0</arc:anzahl-telefonauskuenfte>
+      <arc:letzte-manuelle-archivaenderung><?MAX_AGE_YEARS 99?>2017-03-02T05:02:11.083+01:00</arc:letzte-manuelle-archivaenderung>
+      <arc:provisorisch>false</arc:provisorisch>
+      <arc:erfassung>2015-12-27+01:00</arc:erfassung>
+      <arc:anzahl-nachtragspflichtige-auftraege>0</arc:anzahl-nachtragspflichtige-auftraege>
+   </arc:steuerungsdaten>
+   <arc:kapitel-zahlungsweise>
+      <arc:zahlungsweise>22</arc:zahlungsweise>
+   </arc:kapitel-zahlungsweise>
+   <arc:kapitel-krediturteil>
+      <arc:krediturteil>7</arc:krediturteil>
+   </arc:kapitel-krediturteil>
+   <arc:kapitel-rechtsform>
+      <arc:rechtsform>10001</arc:rechtsform>
+   </arc:kapitel-rechtsform>
+   <arc:kapitel-gruendung>
+      <arc:datum-erste-rechtsform>2015-12-07+01:00</arc:datum-erste-rechtsform>
+      <arc:erste-rechtsform>10001</arc:erste-rechtsform>
+   </arc:kapitel-gruendung>
+   <arc:kapitel-handelsregister>
+      <arc:register-aufnahme>2015-12-07+01:00</arc:register-aufnahme>
+      <arc:amtsgericht>406</arc:amtsgericht>
+      <arc:registerart>2</arc:registerart>
+      <arc:registernummer>365741</arc:registernummer>
+      <arc:letzter-eintrag>2015-12-27+01:00</arc:letzter-eintrag>
+      <arc:grund-letzter-eintrag>10</arc:grund-letzter-eintrag>
+      <arc:qualitaet-letzter-eintrag>
+         <arc:herkunft>8590</arc:herkunft>
+         <arc:zeitpunkt>2015-12-27T02:35:56.268+01:00</arc:zeitpunkt>
+      </arc:qualitaet-letzter-eintrag>
+   </arc:kapitel-handelsregister>
+   <arc:kapitel-historie>
+      <arc:haken-freigabe-umfirmierungen>true</arc:haken-freigabe-umfirmierungen>
+      <arc:haken-freigabe-sitzverlegungen>true</arc:haken-freigabe-sitzverlegungen>
+   </arc:kapitel-historie>
+   <arc:kapitel-standorte>
+      <arc:haken-freigabe>true</arc:haken-freigabe>
+      <arc:juristischer-sitz>
+         <arc:gueltig>true</arc:gueltig>
+         <arc:datum-von>
+            <arc:jahr>2015</arc:jahr>
+            <arc:monat>11</arc:monat>
+            <arc:tag>26</arc:tag>
+         </arc:datum-von>
+         <arc:anschrift>
+            <arc:adresse>
+               <arc:land>1</arc:land>
+               <arc:plz>58095</arc:plz>
+               <arc:ort>Hagen</arc:ort>
+               <arc:ortsteil>Mittelstadt</arc:ortsteil>
+               <arc:strasse>Rathausstr.</arc:strasse>
+               <arc:hausnummer>18</arc:hausnummer>
+               <arc:herkunft-qualitaet>
+                  <arc:zeitpunkt>2017-03-02T05:02:10+01:00</arc:zeitpunkt>
+               </arc:herkunft-qualitaet>
+            </arc:adresse>
+         </arc:anschrift>
+      </arc:juristischer-sitz>
+   </arc:kapitel-standorte>
+   <arc:kapitel-firmenidentifikation>
+      <arc:anschrift>
+         <arc:name1>INKASSO40NEU 1UESAB1MASOFF</arc:name1>
+         <arc:adresse>
+            <arc:land>1</arc:land>
+            <arc:plz>58095</arc:plz>
+            <arc:ort>Hagen</arc:ort>
+            <arc:ortsteil>Mittelstadt</arc:ortsteil>
+            <arc:strasse>Rathausstr.</arc:strasse>
+            <arc:hausnummer>18</arc:hausnummer>
+            <arc:herkunft-qualitaet>
+               <arc:zeitpunkt>2017-03-02T05:02:10+01:00</arc:zeitpunkt>
+            </arc:herkunft-qualitaet>
+         </arc:adresse>
+      </arc:anschrift>
+      <arc:firmierung>INKASSO40NEU 1UESAB1MASOFF</arc:firmierung>
+   </arc:kapitel-firmenidentifikation>
+   <arc:kapitel-inkassoakten>
+      <arc:inkassoakte>
+         <!-- Testfallbeschreibung: früher 'nicht abgeschlossen', jetzt 'abgeschlossen'
+               kein (Pseudo-) Erledigungskennzeichen aber 'DatumErledigung' gefüllt ->
+               früher 'nicht abgeschlossen', jetzt 'abgeschlossen'
+               Aktennummer fehlt aber inkasso40-referenznummer gefüllt /
+               Aktuell kommt die inkasso40-referenznummer im Export als "aktennummer" heraus!
+            I4-Akte, UEBERWACHUNGSSACHE :: glaeubiger-vc fehlt,inkasso40-inkassobuero und inkasso40-telefon vorhanden,  alte aktennummer fehlt, inkasso40-referenznummer vorhanden,datum-erledigung vorhanden und erledigungskennzeichen vorhanden, alte mitgliedsnummer vorhanden, inkasso40-mitgliedsname vorhanden und inkasso40-mitglied-fuer-auskunft-gesperrt=FALSE, inkasso40-zusatz vorhanden
+               Neue Felder inkasso40-inkassobuero,inkasso40-telefon,inkasso40-referenznummer,inkasso40-bewertungsklasse,inkasso40-mitgliedsname, sowie inkasso40-zusatz :: inkasso40-id ,..., sind dabei
+               pseudo-erledigungskennzeichen nicht vorhanden
+               Akte muss exportiert werden!
+            -->
+         <arc:verfahrensart>UEBERWACHUNGSSACHE</arc:verfahrensart>
+         <!--arc:glaeubiger-vc>411</arc:glaeubiger-vc-->
+         <arc:inkasso40-inkassobuero>VC 411 / I4.0 05</arc:inkasso40-inkassobuero>
+         <arc:inkasso40-telefon>02131-VC 411 / I4.0 05</arc:inkasso40-telefon>
+         <!-- Aktennummer entfernt -->
+         <!--arc:aktennummer>4716001</arc:aktennummer-->
+         <arc:inkasso40-referenznummer>Akt 4716401</arc:inkasso40-referenznummer>
+         <arc:datum-erledigung>2021-11-23+02:00</arc:datum-erledigung>
+         <arc:datum-eingang>2021-10-10+02:00</arc:datum-eingang>
+         <arc:datum-verzug>2021-10-01+02:00</arc:datum-verzug>
+         <!-- erledigungskennzeichen fehlt -->
+         <!--arc:erledigungskennzeichen>9</arc:erledigungskennzeichen-->
+         <arc:inkasso40-bewertungsklasse>1</arc:inkasso40-bewertungsklasse>
+         <arc:gesamtforderung-ist>
+            <arc:unbekannt>false</arc:unbekannt>
+            <arc:dekoration-betrag>
+               <arc:betragswert>600</arc:betragswert>
+               <arc:dekoration>EXAKT</arc:dekoration>
+               <arc:waehrung>20000</arc:waehrung>
+            </arc:dekoration-betrag>
+         </arc:gesamtforderung-ist>
+         <arc:gesamtforderung-plan>
+            <arc:unbekannt>false</arc:unbekannt>
+            <arc:dekoration-betrag>
+               <arc:betragswert>1100</arc:betragswert>
+               <arc:dekoration>EXAKT</arc:dekoration>
+               <arc:waehrung>20000</arc:waehrung>
+            </arc:dekoration-betrag>
+         </arc:gesamtforderung-plan>
+         <arc:hauptforderung-plan>
+            <arc:unbekannt>false</arc:unbekannt>
+            <arc:dekoration-betrag>
+               <arc:betragswert>727.52</arc:betragswert>
+               <arc:dekoration>EXAKT</arc:dekoration>
+               <arc:waehrung>20000</arc:waehrung>
+            </arc:dekoration-betrag>
+         </arc:hauptforderung-plan>
+         <arc:forderungsgrund>10</arc:forderungsgrund>
+         <arc:mitgliedsnummer>411000025</arc:mitgliedsnummer>
+         <arc:inkasso40-mitgliedsname>Mitglied 411000025</arc:inkasso40-mitgliedsname>
+         <arc:inkasso40-mitglied-fuer-auskunft-gesperrt>false</arc:inkasso40-mitglied-fuer-auskunft-gesperrt>
+         <!-- inkasso40-zusatz hinzugefügt -->
+         <arc:inkasso40-zusatz>
+            <arc:inkasso40-id>4716401</arc:inkasso40-id>
+            <arc:abschlussgrund-trotz-restforderung>5</arc:abschlussgrund-trotz-restforderung>
+            <arc:mahnbescheid-erlassen-zuletzt-am>2021-10-10+02:00</arc:mahnbescheid-erlassen-zuletzt-am>
+            <arc:titel-erlassen-zuletzt-am>2021-10-10+02:00</arc:titel-erlassen-zuletzt-am>
+            <arc:vollstreckungsauftrag-zuletzt-am>2021-10-10+02:00</arc:vollstreckungsauftrag-zuletzt-am>
+            <arc:pfaendung-beauftragt-zuletzt-am>2021-10-10+02:00</arc:pfaendung-beauftragt-zuletzt-am>
+            <arc:vergleich-betrag>20000</arc:vergleich-betrag>
+            <arc:stundung-datum-bis>2022-10-10+02:00</arc:stundung-datum-bis>
+            <!--arc:pseudo-erledigungskennzeichen>10</arc:pseudo-erledigungskennzeichen-->
+         </arc:inkasso40-zusatz>
+      </arc:inkassoakte>
+      <arc:inkassoakte>
+         <!-- Testfallbeschreibung:
+            früher 'abgeschlossen', jetzt 'nicht abgeschlossen'
+            (Pseudo-) Erledigungskennzeichen vorhanden, 'DatumErledigung' nicht gefüllt -> früher 'abgeschlossen', jetzt 'nicht abgeschlossen'
+
+            Aktennummer fehlt aber inkasso40-referenznummer gefüllt /
+            Aktuell kommt die inkasso40-referenznummer im Export als "aktennummer" heraus!
+         -->
+         <!--I4-Akte, UEBERWACHUNGSSACHE :: glaeubiger-vc fehlt,inkasso40-inkassobuero und inkasso40-telefon vorhanden,  alte aktennummer fehlt, inkasso40-referenznummer vorhanden,datum-erledigung vorhanden und erledigungskennzeichen vorhanden, alte mitgliedsnummer vorhanden, inkasso40-mitgliedsname vorhanden und inkasso40-mitglied-fuer-auskunft-gesperrt=FALSE, inkasso40-zusatz vorhanden
+            Neue Felder inkasso40-inkassobuero,inkasso40-telefon,inkasso40-referenznummer,inkasso40-bewertungsklasse,inkasso40-mitgliedsname,inkasso40-mitglied-fuer-auskunft-gesperrt
+            sowie inkasso40-zusatz :: inkasso40-id ,..., pseudo-erledigungskennzeichen
+            sind dabei
+            Akte muss exportiert werden!
+         -->
+         <arc:verfahrensart>MAHNSACHE</arc:verfahrensart>
+         <!--arc:glaeubiger-vc>411</arc:glaeubiger-vc-->
+         <arc:inkasso40-inkassobuero>VC 411 / I4.0 05</arc:inkasso40-inkassobuero>
+         <arc:inkasso40-telefon>02131-VC 411 / I4.0 05</arc:inkasso40-telefon>
+         <!-- Aktennummer entfernt -->
+         <!--arc:aktennummer>4716402</arc:aktennummer-->
+         <arc:inkasso40-referenznummer>Akt 4716402</arc:inkasso40-referenznummer>
+         <!-- DatumErledigung entfernt -->
+         <!--arc:datum-erledigung>2021-11-23+02:00</arc:datum-erledigung-->
+         <arc:datum-eingang>2021-10-10+02:00</arc:datum-eingang>
+         <arc:datum-verzug>2021-10-01+02:00</arc:datum-verzug>
+         <!-- erledigungskennzeichen vorhanden -->
+         <arc:erledigungskennzeichen>9</arc:erledigungskennzeichen>
+         <arc:inkasso40-bewertungsklasse>1</arc:inkasso40-bewertungsklasse>
+         <arc:gesamtforderung-ist>
+            <arc:unbekannt>false</arc:unbekannt>
+            <arc:dekoration-betrag>
+               <arc:betragswert>600</arc:betragswert>
+               <arc:dekoration>EXAKT</arc:dekoration>
+               <arc:waehrung>20000</arc:waehrung>
+            </arc:dekoration-betrag>
+         </arc:gesamtforderung-ist>
+         <arc:gesamtforderung-plan>
+            <arc:unbekannt>false</arc:unbekannt>
+            <arc:dekoration-betrag>
+               <arc:betragswert>1100</arc:betragswert>
+               <arc:dekoration>EXAKT</arc:dekoration>
+               <arc:waehrung>20000</arc:waehrung>
+            </arc:dekoration-betrag>
+         </arc:gesamtforderung-plan>
+         <arc:hauptforderung-plan>
+            <arc:unbekannt>false</arc:unbekannt>
+            <arc:dekoration-betrag>
+               <arc:betragswert>702.03</arc:betragswert>
+               <arc:dekoration>EXAKT</arc:dekoration>
+               <arc:waehrung>20000</arc:waehrung>
+            </arc:dekoration-betrag>
+         </arc:hauptforderung-plan>
+         <arc:forderungsgrund>10</arc:forderungsgrund>
+         <arc:mitgliedsnummer>411000025</arc:mitgliedsnummer>
+         <arc:inkasso40-mitgliedsname>Mitglied 411000025</arc:inkasso40-mitgliedsname>
+         <arc:inkasso40-mitglied-fuer-auskunft-gesperrt>false</arc:inkasso40-mitglied-fuer-auskunft-gesperrt>
+         <!-- inkasso40-zusatz hinzugefügt -->
+         <arc:inkasso40-zusatz>
+            <arc:inkasso40-id>4716402</arc:inkasso40-id>
+            <arc:abschlussgrund-trotz-restforderung>5</arc:abschlussgrund-trotz-restforderung>
+            <arc:mahnbescheid-erlassen-zuletzt-am>2021-10-10+02:00</arc:mahnbescheid-erlassen-zuletzt-am>
+            <arc:titel-erlassen-zuletzt-am>2021-10-10+02:00</arc:titel-erlassen-zuletzt-am>
+            <arc:vollstreckungsauftrag-zuletzt-am>2021-10-10+02:00</arc:vollstreckungsauftrag-zuletzt-am>
+            <arc:pfaendung-beauftragt-zuletzt-am>2021-10-10+02:00</arc:pfaendung-beauftragt-zuletzt-am>
+            <arc:vergleich-betrag>20000</arc:vergleich-betrag>
+            <arc:stundung-datum-bis>2022-10-10+02:00</arc:stundung-datum-bis>
+            <arc:pseudo-erledigungskennzeichen>10</arc:pseudo-erledigungskennzeichen>
+         </arc:inkasso40-zusatz>
+      </arc:inkassoakte>
+   </arc:kapitel-inkassoakten>
+</arc:archivbestand>

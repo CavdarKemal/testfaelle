@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JaxbTestXmlWithRoot>
+    <!--comment before element-->
+    <texte>einsÄÖÜäöüß&lt;&gt;/\</texte>
+    <texte>zwei</texte> <!--comment after element-->
+</JaxbTestXmlWithRoot>

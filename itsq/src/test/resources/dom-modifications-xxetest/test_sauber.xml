@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JaxbTestXmlWithRoot>
+    <texte>einsÄÖÜäöüß&lt;&gt;/\</texte>
+    <texte>zwei</texte>
+</JaxbTestXmlWithRoot>
