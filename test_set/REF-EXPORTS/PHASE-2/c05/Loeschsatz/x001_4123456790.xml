@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><bis:bip_stammdatenexport xmlns:bis="http://www.creditreform.de/crefoteam/bip/2011/12" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <bis:bip_stammdaten>
+        <bis:daten-bzgl-crefo>
+            <bis:crefonummer>4123456790</bis:crefonummer>
+            <bis:crefo-einstufung>STAMMCREFO</bis:crefo-einstufung>
+            <bis:firma>true</bis:firma>
+            <bis:provisorisch>false</bis:provisorisch>
+        </bis:daten-bzgl-crefo>
+        <bis:bedirect-relevant>true</bis:bedirect-relevant>
+        <bis:verwaltung>
+            <bis:letzte-manuelle-aenderung>2023-06-29T16:26:53.702+02:00</bis:letzte-manuelle-aenderung>
+            <bis:letzte-recherche>2023-06-29+02:00</bis:letzte-recherche>
+            <bis:anzahl-auskuenfte>1</bis:anzahl-auskuenfte>
+            <bis:vorraetig>true</bis:vorraetig>
+            <bis:personenstatus>
+                <bis:bezeichnung>aktiv</bis:bezeichnung>
+                <bis:id>1</bis:id>
+            </bis:personenstatus>
+        </bis:verwaltung>
+        <bis:firma-name>
+            <bis:firmierung>Blup 1898</bis:firmierung>
+            <bis:name1>Blup 1897</bis:name1>
+        </bis:firma-name>
+        <bis:standort-firmenidentifikation>
+            <bis:anschrift>
+                <bis:land>
+                    <bis:bezeichnung>DE</bis:bezeichnung>
+                    <bis:id>1</bis:id>
+                </bis:land>
+                <bis:plz>58095</bis:plz>
+                <bis:ort>Deeee</bis:ort>
+                <bis:ortsteil>Mittelstadt</bis:ortsteil>
+                <bis:strasse>Neumarktstr.</bis:strasse>
+                <bis:hausnummer>10</bis:hausnummer>
+                <bis:herkunft-und-zeitpunkt>
+                    <bis:zeitpunkt>2023-06-29T16:08:07.073+02:00</bis:zeitpunkt>
+                </bis:herkunft-und-zeitpunkt>
+                <bis:name1>Blup 1898</bis:name1>
+            </bis:anschrift>
+        </bis:standort-firmenidentifikation>
+    </bis:bip_stammdaten>
+</bis:bip_stammdatenexport>
+        <?xml version="1.0" encoding="UTF-8"?><bis:bip_stammdatenexport xmlns:bis="http://www.creditreform.de/crefoteam/bip/2011/12" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<bis:bip_stammdaten>
+    <bis:daten-bzgl-crefo>
+        <bis:crefonummer>1234567891</bis:crefonummer>
+        <bis:crefo-einstufung>STAMMCREFO</bis:crefo-einstufung>
+        <bis:firma>true</bis:firma>
+        <bis:provisorisch>false</bis:provisorisch>
+    </bis:daten-bzgl-crefo>
+    <bis:bedirect-relevant>true</bis:bedirect-relevant>
+    <bis:verwaltung>
+        <bis:letzte-manuelle-aenderung>2023-06-29T16:26:53.702+02:00</bis:letzte-manuelle-aenderung>
+        <bis:letzte-recherche>2023-06-29+02:00</bis:letzte-recherche>
+        <bis:anzahl-auskuenfte>1</bis:anzahl-auskuenfte>
+        <bis:vorraetig>true</bis:vorraetig>
+        <bis:personenstatus>
+            <bis:bezeichnung>aktiv</bis:bezeichnung>
+            <bis:id>1</bis:id>
+        </bis:personenstatus>
+    </bis:verwaltung>
+    <bis:firma-name>
+        <bis:firmierung>Blup 1897</bis:firmierung>
+        <bis:name1>Blup 1897</bis:name1>
+    </bis:firma-name>
+    <bis:standort-firmenidentifikation>
+        <bis:anschrift>
+            <bis:land>
+                <bis:bezeichnung>DE</bis:bezeichnung>
+                <bis:id>1</bis:id>
+            </bis:land>
+            <bis:plz>58095</bis:plz>
+            <bis:ort>Deeee</bis:ort>
+            <bis:ortsteil>Mittelstadt</bis:ortsteil>
+            <bis:strasse>Neumarktstr.</bis:strasse>
+            <bis:hausnummer>10</bis:hausnummer>
+            <bis:herkunft-und-zeitpunkt>
+                <bis:zeitpunkt>2023-06-29T16:08:07.073+02:00</bis:zeitpunkt>
+            </bis:herkunft-und-zeitpunkt>
+            <bis:name1>Blup 1897</bis:name1>
+        </bis:anschrift>
+    </bis:standort-firmenidentifikation>
+</bis:bip_stammdaten>
+</bis:bip_stammdatenexport>

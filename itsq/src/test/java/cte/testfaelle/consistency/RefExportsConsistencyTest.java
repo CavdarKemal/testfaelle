@@ -54,4 +54,10 @@ public class RefExportsConsistencyTest {
         Assert.assertTrue(consistencyCheckResult.getErrors(), consistencyCheckResult.ok());
     }
 
+    @Test
+    public void testCheckArchivBestandPhase1SubsetOfPhase2() {
+        TestSetData.ConsistencyCheckResult consistencyCheckResult = testSetData.checkArchivBestandPhase1SubsetOfPhase2();
+        Assert.assertTrue(consistencyCheckResult.getErrors(), consistencyCheckResult.ok());
+    }
+
 }

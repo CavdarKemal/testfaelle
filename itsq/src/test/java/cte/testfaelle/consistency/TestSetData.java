@@ -109,46 +109,63 @@ public class TestSetData {
             customersTestCrefosPhase1.forEach(testCrefoPhase1 -> {
                 List<TestCrefo> customersTestCrefosPhase2 = testCustomerPhase2.getAllTestCrefos(false, false);
                 TestCrefo testCrefoPhase2 = findTestfallInMap(customersTestCrefosPhase2, testCrefoPhase1.getItsqTestCrefoNr());
-                if(testCrefoPhase2 != null) {
-                    String testFallNamePH1 = testCrefoPhase1.getTestFallName();
-                    String testFallNamePH2 = testCrefoPhase2.getTestFallName();
-                    // Ein X-Fall in PH2 muss ein P-Fall in PH1 sein!
-                    if (testFallNamePH2.startsWith("x") && !testFallNamePH1.startsWith("p")) {
-                        String errMsg = "Phase-1-TestfallTyp für " + testCrefoPhase1.getItsqTestCrefoNr() + " muss 'P' sein, da Phase-2-TestfallTyp 'X' ist!";
+                String testFallNamePH1 = testCrefoPhase1.getTestFallName();
+                    // In PH1 sind nur P-Fälle erlaubt (Löschsatz-Companion)
+                    if (testFallNamePH1.startsWith("n") || testFallNamePH1.startsWith("x")) {
+                        String errMsg = "Phase-1 darf nur P-Testfälle enthalten! Gefunden: '" + testFallNamePH1 + "' für Crefo " + testCrefoPhase1.getItsqTestCrefoNr();
                         consistencyCheckResult.addAssertion(errMsg);
-                    }
-                    if (testFallNamePH1.startsWith("p")) {
-                        // Für ein P-Fall in PH1 müssen sowohl REF-XML-File als auch AB30-XML-Datei existieren
-                        if(testCrefoPhase1.getItsqRexExportXmlFile() == null || !testCrefoPhase1.getItsqRexExportXmlFile().exists()) {
-                            String errMsg = "Phase-1-P-Testfall für " + testCrefoPhase1.getItsqTestCrefoNr() + " muss ein REF-XML-Datei haben!";
+                    } else if (testFallNamePH1.startsWith("p")) {
+                        // P-Fall in PH1 muss REF-XML und AB30-XML haben
+                        if (testCrefoPhase1.getItsqRexExportXmlFile() == null || !testCrefoPhase1.getItsqRexExportXmlFile().exists()) {
+                            String errMsg = "Phase-1-P-Testfall für " + testCrefoPhase1.getItsqTestCrefoNr() + " muss eine REF-XML-Datei haben!";
                             consistencyCheckResult.addAssertion(errMsg);
                         }
-                        if(testCrefoPhase1.getItsqAb30XmlFile() == null || !testCrefoPhase1.getItsqAb30XmlFile().exists()) {
-                            String errMsg = "Phase-1-P-Testfall für " + testCrefoPhase1.getItsqTestCrefoNr() + " muss ein AB30-XML-Datei haben!";
+                        if (testCrefoPhase1.getItsqAb30XmlFile() == null || !testCrefoPhase1.getItsqAb30XmlFile().exists()) {
+                            String errMsg = "Phase-1-P-Testfall für " + testCrefoPhase1.getItsqTestCrefoNr() + " muss eine AB30-XML-Datei haben!";
                             consistencyCheckResult.addAssertion(errMsg);
                         }
-                    }
-                    if (testFallNamePH1.startsWith("n")) {
-                        // Für ein N-Fall in PH1 darf kein REF-XML-File existieren
-                        if (testCrefoPhase1.getItsqRexExportXmlFile() != null && testCrefoPhase1.getItsqRexExportXmlFile().exists()) {
-                            String errMsg = "Phase-1-N-Testfall für " + testCrefoPhase1.getItsqTestCrefoNr() + " darf kein REF-XML-Datei haben!";
-                            consistencyCheckResult.addAssertion(errMsg);
-                        }
-                        // Für ein N-Fall in PH1 darf kein AB30-XML-File existieren
-                        if (testCrefoPhase1.getItsqAb30XmlFile() != null && testCrefoPhase1.getItsqAb30XmlFile().exists()) {
-                            String errMsg = "Phase-1-N-Testfall für " + testCrefoPhase1.getItsqTestCrefoNr() + " darf kein AB30-XML-Datei haben!";
+                        // Zu jedem Phase-1-P-Fall muss ein Phase-2-X-Fall desselben Kunden existieren
+                        if (testCrefoPhase2 == null || !testCrefoPhase2.getTestFallName().startsWith("x")) {
+                            String errMsg = "Zu Phase-1-P-Testfall " + testCrefoPhase1.getItsqTestCrefoNr() + " fehlt ein X-Testfall in Phase-2 für Kunde " + testCustomerPhase1.getCustomerKey() + "!";
                             consistencyCheckResult.addAssertion(errMsg);
                         }
                     }
-                    // In PH1 darf es kein X-Fall geben
-                    if (testFallNamePH1.startsWith("x")) {
-                        String errMsg = "In Phase-1 darf es kein X-Testfall gegen!";
-                        consistencyCheckResult.addAssertion(errMsg);
-                    }
-                }
-                else {
-                    String errMsg = "Phase-1-TestCrefo für " + testCrefoPhase1.getItsqTestCrefoNr() + " existiert nicht in Pahase-2-Map!";
+            });
+        });
+        // Phase-2: Regeln für alle Testfall-Typen prüfen
+        testCustomerMapPhase2.forEach((customerKey, testCustomerPhase2) -> {
+            TestCustomer testCustomerPhase1 = testCustomerMapPhase1.get(customerKey);
+            List<TestCrefo> customersTestCrefosPhase2 = testCustomerPhase2.getAllTestCrefos(false, false);
+            customersTestCrefosPhase2.forEach(testCrefoPhase2 -> {
+                String testFallNamePH2 = testCrefoPhase2.getTestFallName();
+                Long crefoNr = testCrefoPhase2.getItsqTestCrefoNr();
+                // Regel 2: Jede Crefo muss in ARCHIV-BESTAND/PHASE-2 existieren
+                if (testCrefoPhase2.getItsqAb30XmlFile() == null || !testCrefoPhase2.getItsqAb30XmlFile().exists()) {
+                    String errMsg = "Phase-2-Testfall " + testFallNamePH2 + " für Crefo " + crefoNr + " (Kunde " + customerKey + ") muss in ARCHIV-BESTAND/PHASE-2 existieren!";
                     consistencyCheckResult.addAssertion(errMsg);
+                }
+                if (testFallNamePH2.startsWith("p")) {
+                    // P-Fall: REF-XML muss existieren
+                    if (testCrefoPhase2.getItsqRexExportXmlFile() == null || !testCrefoPhase2.getItsqRexExportXmlFile().exists()) {
+                        String errMsg = "Phase-2-P-Testfall für " + crefoNr + " (Kunde " + customerKey + ") muss eine REF-XML-Datei haben!";
+                        consistencyCheckResult.addAssertion(errMsg);
+                    }
+                } else if (testFallNamePH2.startsWith("n")) {
+                    // N-Fall: REF-XML darf nicht existieren
+                    if (testCrefoPhase2.getItsqRexExportXmlFile() != null && testCrefoPhase2.getItsqRexExportXmlFile().exists()) {
+                        String errMsg = "Phase-2-N-Testfall für " + crefoNr + " (Kunde " + customerKey + ") darf keine REF-XML-Datei haben!";
+                        consistencyCheckResult.addAssertion(errMsg);
+                    }
+                } else if (testFallNamePH2.startsWith("x")) {
+                    // X-Fall: muss P-Fall in Phase-1 desselben Kunden haben
+                    List<TestCrefo> customersTestCrefosPhase1 = testCustomerPhase1 != null
+                            ? testCustomerPhase1.getAllTestCrefos(false, false)
+                            : new ArrayList<>();
+                    TestCrefo testCrefoPhase1 = findTestfallInMap(customersTestCrefosPhase1, crefoNr);
+                    if (testCrefoPhase1 == null || !testCrefoPhase1.getTestFallName().startsWith("p")) {
+                        String errMsg = "Zu Phase-2-X-Testfall " + crefoNr + " fehlt ein P-Testfall in Phase-1 für Kunde " + customerKey + "!";
+                        consistencyCheckResult.addAssertion(errMsg);
+                    }
                 }
             });
         });
@@ -200,6 +217,29 @@ public class TestSetData {
                 }
             } else {
                 String errMsg = "Zu RefExportsBeschreibung für " + refExportsBeschreibung.getCrefoNummer() + " wurde kein RohdatenBeschreibung in der Map 'rohDatenTargetMap' + ' gefunden!";
+                consistencyCheckResult.addAssertion(errMsg);
+            }
+        }
+        return consistencyCheckResult;
+    }
+
+    public ConsistencyCheckResult checkArchivBestandPhase1SubsetOfPhase2() {
+        ConsistencyCheckResult consistencyCheckResult = new ConsistencyCheckResult();
+        Map<String, TestCustomer> phase1Customers = customerTestInfoMapMap.get(TestSupportClientKonstanten.TEST_PHASE.PHASE_1);
+        Map<String, TestCustomer> phase2Customers = customerTestInfoMapMap.get(TestSupportClientKonstanten.TEST_PHASE.PHASE_2);
+        if (phase1Customers.isEmpty() || phase2Customers.isEmpty()) {
+            return consistencyCheckResult;
+        }
+        File phase1Dir = phase1Customers.values().iterator().next().getItsqAB30XmlsDir();
+        File phase2Dir = phase2Customers.values().iterator().next().getItsqAB30XmlsDir();
+        File[] phase1XmlFiles = phase1Dir.listFiles((dir, name) -> name.endsWith(".xml"));
+        if (phase1XmlFiles == null) {
+            return consistencyCheckResult;
+        }
+        for (File phase1File : phase1XmlFiles) {
+            File expectedInPhase2 = new File(phase2Dir, phase1File.getName());
+            if (!expectedInPhase2.exists()) {
+                String errMsg = "ARCHIV-BESTAND/PHASE-1/" + phase1File.getName() + " fehlt in ARCHIV-BESTAND/PHASE-2!";
                 consistencyCheckResult.addAssertion(errMsg);
             }
         }
