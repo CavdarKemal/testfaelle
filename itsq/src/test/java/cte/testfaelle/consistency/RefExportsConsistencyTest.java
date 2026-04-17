@@ -4,6 +4,8 @@ import cte.testfaelle.ITSQTestFaelleUtilTest;
 import cte.testfaelle.domain.TestCustomer;
 import cte.testfaelle.domain.TestSupportClientKonstanten;
 import cte.testfaelle.extender.ITSQTestFaelleUtil;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import org.junit.Assert;
 import org.junit.Before;
@@ -58,6 +60,26 @@ public class RefExportsConsistencyTest {
     public void testCheckArchivBestandPhase1SubsetOfPhase2() {
         TestSetData.ConsistencyCheckResult consistencyCheckResult = testSetData.checkArchivBestandPhase1SubsetOfPhase2();
         Assert.assertTrue(consistencyCheckResult.getErrors(), consistencyCheckResult.ok());
+    }
+
+    @Test
+    public void testCheckTestCrefosPropertiesVsRefExportsPhase1() throws IOException {
+        File testCrefosFile = new File(ITSQTestFaelleUtilTest.TEST_SET_DIR,
+                TestSupportClientKonstanten.ARCHIV_BESTAND_ROOT + "/" + TestSupportClientKonstanten.PHASE_1
+                        + "/" + TestSupportClientKonstanten.TEST_CREFOS_PROPS_FILENAME);
+        TestSetData.ConsistencyCheckResult result = testSetData.checkTestCrefosPropertiesVsRefExports(
+                TestSupportClientKonstanten.TEST_PHASE.PHASE_1, testCrefosFile);
+        Assert.assertTrue(result.getErrors(), result.ok());
+    }
+
+    @Test
+    public void testCheckTestCrefosPropertiesVsRefExportsPhase2() throws IOException {
+        File testCrefosFile = new File(ITSQTestFaelleUtilTest.TEST_SET_DIR,
+                TestSupportClientKonstanten.ARCHIV_BESTAND_ROOT + "/" + TestSupportClientKonstanten.PHASE_2
+                        + "/" + TestSupportClientKonstanten.TEST_CREFOS_PROPS_FILENAME);
+        TestSetData.ConsistencyCheckResult result = testSetData.checkTestCrefosPropertiesVsRefExports(
+                TestSupportClientKonstanten.TEST_PHASE.PHASE_2, testCrefosFile);
+        Assert.assertTrue(result.getErrors(), result.ok());
     }
 
 }

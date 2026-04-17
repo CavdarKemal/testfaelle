@@ -1,6 +1,7 @@
 package cte.testfaelle.consistency;
 
 import cte.testfaelle.consistency.parser.RefExportsParserIF;
+import cte.testfaelle.domain.AB30XMLProperties;
 import cte.testfaelle.domain.TestCrefo;
 import cte.testfaelle.domain.TestCustomer;
 import cte.testfaelle.domain.TestScenario;
@@ -8,12 +9,15 @@ import cte.testfaelle.domain.TestSupportClientKonstanten;
 import cte.testfaelle.domain.TimelineLogger;
 import cte.testfaelle.extender.ITSQTestFaelleUtil;
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import org.apache.commons.io.FileUtils;
 
 import static cte.testfaelle.consistency.RefExportsBeschreibung.NOT_SUPPORTED;
 
@@ -244,6 +248,103 @@ public class TestSetData {
             }
         }
         return consistencyCheckResult;
+    }
+
+    /**
+     * Rückwärts-Konsistenztest: prüft bidirektional, ob TestCrefos.properties und REF-EXPORTS übereinstimmen.
+     * <p>
+     * ARCHIV→REF: Jede Kunden-Zuordnung in TestCrefos.properties muss einen p- oder x-Testfall in REF-EXPORTS haben.
+     * REF→ARCHIV: Jeder p- oder x-Testfall in REF-EXPORTS muss in TestCrefos.properties beim richtigen Kunden stehen.
+     */
+    public ConsistencyCheckResult checkTestCrefosPropertiesVsRefExports(
+            TestSupportClientKonstanten.TEST_PHASE testPhase, File testCrefosFile) throws IOException {
+        ConsistencyCheckResult result = new ConsistencyCheckResult();
+        Map<Long, AB30XMLProperties> propsMap = parseTestCrefosPropertiesFile(testCrefosFile);
+        if (propsMap.isEmpty()) {
+            result.addAssertion("TestCrefos.properties für " + testPhase.getDirName() + " ist leer oder nicht vorhanden: " + testCrefosFile);
+            return result;
+        }
+        Map<String, TestCustomer> customerMap = customerTestInfoMapMap.get(testPhase);
+
+        // Crefos, die als Beteiligter eines anderen Eintrags aufgeführt sind — für diese wird kein eigener Testfall erwartet
+        java.util.Set<Long> btlgOnlyCrefos = new java.util.HashSet<>();
+        for (AB30XMLProperties props : propsMap.values()) {
+            btlgOnlyCrefos.addAll(props.getBtlgCrefosList());
+        }
+        // Beteiligten-only: nur Crefos, die AUSSCHLIESSLICH als Beteiligter auftreten (kein eigener Kunden-Eintrag)
+        propsMap.values().stream()
+                .filter(p -> !p.getUsedByCustomersList().isEmpty())
+                .forEach(p -> btlgOnlyCrefos.remove(p.getCrefoNr()));
+
+        // Richtung 1: ARCHIV-BESTAND → REF-EXPORTS
+        // Für jeden Kunden-Eintrag muss der Kunde irgendeinen Testfall (p, n oder x) für die Crefo haben.
+        // Ausnahme: Beteiligten-only-Crefos brauchen keinen Testfall.
+        for (AB30XMLProperties props : propsMap.values()) {
+            if (btlgOnlyCrefos.contains(props.getCrefoNr())) {
+                continue; // Beteiligter ohne eigenen Kunden-Eintrag — kein Export erwartet
+            }
+            for (String customerKey : props.getUsedByCustomersList()) {
+                TestCustomer testCustomer = customerMap.get(customerKey);
+                if (testCustomer == null) {
+                    result.addAssertion("[ARCHIV→REF] Crefo " + props.getCrefoNr() + ": Kunde '" + customerKey
+                            + "' in TestCrefos.properties nicht in REF-EXPORTS/" + testPhase.getDirName() + " definiert!");
+                    continue;
+                }
+                // p-, n- und x-Fälle werden alle akzeptiert (der Extender trägt alle Testfall-Typen ein)
+                boolean found = testCustomer.getTestScenariosMap().values().stream()
+                        .flatMap(s -> s.getTestFallNameToTestCrefoMap().values().stream())
+                        .anyMatch(tc -> tc.getItsqTestCrefoNr().equals(props.getCrefoNr()));
+                if (!found) {
+                    result.addAssertion("[ARCHIV→REF] Crefo " + props.getCrefoNr() + " ist in TestCrefos.properties/"
+                            + testPhase.getDirName() + " als Kunde '" + customerKey
+                            + "' eingetragen, aber in REF-EXPORTS hat " + customerKey + " keinen Testfall für diese Crefo!");
+                }
+            }
+        }
+
+        // Richtung 2: REF-EXPORTS → ARCHIV-BESTAND
+        // Für jeden Testfall (p, n und x) muss die Crefo in TestCrefos.properties beim Kunden eingetragen sein.
+        for (Map.Entry<String, TestCustomer> entry : customerMap.entrySet()) {
+            String customerKey = entry.getKey();
+            for (TestScenario scenario : entry.getValue().getTestScenariosMap().values()) {
+                for (Map.Entry<String, TestCrefo> e : scenario.getTestFallNameToTestCrefoMap().entrySet()) {
+                    Long crefoNr = e.getValue().getItsqTestCrefoNr();
+                    AB30XMLProperties props = propsMap.get(crefoNr);
+                    if (props == null) {
+                        result.addAssertion("[REF→ARCHIV] Crefo " + crefoNr + " (Testfall '" + e.getKey() + "', Kunde "
+                                + customerKey + ") fehlt komplett in TestCrefos.properties/" + testPhase.getDirName() + "!");
+                    } else if (!props.getUsedByCustomersList().contains(customerKey)) {
+                        result.addAssertion("[REF→ARCHIV] Crefo " + crefoNr + " hat in REF-EXPORTS/"
+                                + testPhase.getDirName() + " Testfall '" + e.getKey() + "' für Kunde '" + customerKey
+                                + "', aber in TestCrefos.properties fehlt dieser Kunde!");
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    private Map<Long, AB30XMLProperties> parseTestCrefosPropertiesFile(File testCrefosFile) throws IOException {
+        Map<Long, AB30XMLProperties> propsMap = new TreeMap<>();
+        if (!testCrefosFile.exists()) {
+            return propsMap;
+        }
+        List<String> lines = FileUtils.readLines(testCrefosFile, StandardCharsets.UTF_8);
+        int version = AB30XMLProperties.VERSION;
+        for (String line : lines) {
+            if (line.trim().startsWith(AB30XMLProperties.VERSION_STR)) {
+                version = Integer.parseInt(line.trim().replace(AB30XMLProperties.VERSION_STR, "").trim());
+                break;
+            }
+        }
+        for (String line : lines) {
+            String trimmed = line.trim();
+            if (!trimmed.isEmpty() && !trimmed.startsWith("#")) {
+                AB30XMLProperties props = new AB30XMLProperties(trimmed, version);
+                propsMap.put(props.getCrefoNr(), props);
+            }
+        }
+        return propsMap;
     }
 
     private TestCrefo findTestfallInMap(List<TestCrefo> testCrefoList, Long itsqTestCrefoNr) {
