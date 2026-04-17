@@ -219,7 +219,8 @@ public class AB30MapperUtil {
             // prüfe, ob die XML-Datei für den Beteiligten der Test-Crefo existiert...
             File btlgCrefoXmlFile = new File(ab30XmlsDir, btlgEntgCrefo + ".xml");
             if (!btlgCrefoXmlFile.exists()) {
-                TimelineLogger.error(getClass(), strInfoPrefix + "!!! XML-Datei " + btlgCrefoXmlFile + " für die btlgEntgCrefo-Crefo " + strBtlgEntg + " existiert nicht!");
+                // erwartet, wenn der Beteiligte in dieser Phase kein Haupt-Testfall ist (z.B. PHASE-1)
+                TimelineLogger.warn(getClass(), strInfoPrefix + "XML-Datei " + btlgCrefoXmlFile + " für " + strBtlgEntg + " " + btlgEntgCrefo + " nicht vorhanden (Beteiligter ohne eigenen AB30-Testfall in dieser Phase).");
             }
         }
         // wenn diese BTLG-Crefo noch nicht in der neuen Map existiert, dann hinzufügen (sonst wird kein "replacement" durchgeführt!)

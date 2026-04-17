@@ -117,7 +117,10 @@ public class TestScenario {
                     String[] splitEqual = line.split("=");
                     try {
                         String testFallName = splitEqual[0].trim();
-                        boolean shouldBeExported = !testFallName.startsWith("n");
+                        // p-Fälle: REF-XML erforderlich; n-Fälle: REF-XML verboten; x-Fälle (Löschsätze): optional
+                        boolean mustHaveExport = testFallName.startsWith("p");
+                        boolean mustNotHaveExport = testFallName.startsWith("n");
+                        boolean shouldBeExported = mustHaveExport;
                         final String[] splitHash = splitEqual[1].trim().split("#");
                         long crefoNr = Long.parseLong(splitHash[0].trim());
                         String testFallInfo = (splitHash.length > 1) ? splitHash[1] : "";
@@ -125,10 +128,10 @@ public class TestScenario {
 
                         File itsqRefExpXmlFile = findXmlFileForCrefo(refExportXmlFileList, crefoNr);
                         File itsqAb30XmlFile = new File(getTestCustomer().getItsqAB30XmlsDir(), (crefoNr + ".xml"));
-                        if (!shouldBeExported && (itsqRefExpXmlFile != null && itsqRefExpXmlFile.exists())) {
+                        if (mustNotHaveExport && (itsqRefExpXmlFile != null && itsqRefExpXmlFile.exists())) {
                             String errorStr = "Für die Test-Crefo '" + testFallName + "':" + crefoNr + " dürfte es KEINE RefExport-XML existieren!";
                             TimelineLogger.warn(getClass(), errorStr);
-                        } else if (shouldBeExported && (itsqRefExpXmlFile == null || !itsqRefExpXmlFile.exists())) {
+                        } else if (mustHaveExport && (itsqRefExpXmlFile == null || !itsqRefExpXmlFile.exists())) {
                             String errorStr = "Für die Test-Crefo '" + testFallName + "':" + crefoNr + " müsste es EINE RefExport-XML existieren!";
                             TimelineLogger.warn(getClass(), errorStr);
                         }
