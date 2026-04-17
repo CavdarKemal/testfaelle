@@ -3,7 +3,6 @@ package cte.testfaelle.dommodifications.dommodmarshalling;
 import cte.testfaelle.dommodifications.dommodcommon.DomModException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import org.w3c.dom.DOMConfiguration;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
@@ -12,6 +11,7 @@ import org.w3c.dom.ls.LSException;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSParser;
+import org.w3c.dom.ls.LSResourceResolver;
 import org.w3c.dom.ls.LSSerializer;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -41,15 +41,12 @@ public class DomModMarshallingStrategyLS
             lsInput.setEncoding(UTF_8.name());
             lsInput.setByteStream(in);
             LSParser parser = implLS.createLSParser(DOMImplementationLS.MODE_SYNCHRONOUS, "http://www.w3.org/2001/XMLSchema");
-            // XXE-Konfiguration...
-            if (!(parser instanceof DOMConfiguration)) {
-                throw new DomModException("LSParser does not support DOMConfiguration: " + parser.getClass().getName());
-            }
-            DOMConfiguration config = (DOMConfiguration) parser;
-            if (!config.canSetParameter("disallow-doctype", true)) {
-                throw new DomModException("LSParser does not support DOMConfiguration#disallow-doctype: " + parser.getClass().getName());
-            }
-            config.setParameter("disallow-doctype", true);
+            // XXE-Schutz: externe Ressourcen (Entities, DTD-Includes) grundsätzlich ablehnen
+            LSResourceResolver xxeBlocker = (type, namespaceURI, publicId, systemId, baseURI) -> {
+                throw new LSException(LSException.PARSE_ERR,
+                        "XXE-Schutz: Externe Ressource abgewiesen (systemId=" + systemId + ")");
+            };
+            parser.getDomConfig().setParameter("resource-resolver", xxeBlocker);
             return parser.parse(lsInput);
         } catch (DOMException | LSException e) {
             throw new DomModException(getClass().getSimpleName() + "#parseFromStream scheitert beim Unmarshalling aus einem InputStream", e);

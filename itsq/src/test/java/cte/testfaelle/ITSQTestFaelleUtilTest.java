@@ -66,22 +66,24 @@ public class ITSQTestFaelleUtilTest {
                 Assert.assertNotNull("Kunde: '" + testCustomer.getCustomerKey() + "':: TetfallName der Test-Crefo im Scenario '" + testScenario.getScenarioName() + "' nicht gesetzt!", testCrefo.getTestFallName());
                 if (testCrefo.getTestFallName().startsWith("n")) {
                     Assert.assertNull("Kunde: '" + testCustomer.getCustomerKey() + "':: Negativ-Testfall im Scenario '" + testScenario.getScenarioName() + "' dürfte keine Ref-XML-Datei haben!", testCrefo.getItsqRexExportXmlFile());
-                } else {
+                } else if (testCrefo.getTestFallName().startsWith("p")) {
                     Assert.assertNotNull("Kunde: '" + testCustomer.getCustomerKey() + "':: Ref-Export-Dateiname der Test-Crefo im Scenario '" + testScenario.getScenarioName() + "' nicht gesetzt!", testCrefo.getItsqRexExportXmlFile());
                 }
+                // x-Fälle (Löschsätze): REF-XML ist optional, kein Check
             }
         }
     }
 
     private void checkFilesList(TestScenario testScenario) {
         for (TestCrefo testCrefo : testScenario.getTestCrefosAsList()) {
-            boolean schouldExist = !testCrefo.getTestFallName().startsWith("n");
+            String fallName = testCrefo.getTestFallName();
             File refExportFile = testCrefo.getItsqRexExportXmlFile();
-            if (!schouldExist && (refExportFile != null && refExportFile.exists())) {
-                Assert.fail("!!! Für die Test-Crefo " + testCrefo.getTestFallName() + " dürfte es keine RefExport-XML existieren!");
-            } else if (schouldExist && (refExportFile == null || !refExportFile.exists())) {
-                Assert.fail("!!! Für die Test-Crefo " + testCrefo.getTestFallName() + " müsste es eine RefExport-XML existieren!");
+            if (fallName.startsWith("n") && refExportFile != null && refExportFile.exists()) {
+                Assert.fail("!!! Für die Test-Crefo " + fallName + " dürfte es keine RefExport-XML existieren!");
+            } else if (fallName.startsWith("p") && (refExportFile == null || !refExportFile.exists())) {
+                Assert.fail("!!! Für die Test-Crefo " + fallName + " müsste es eine RefExport-XML existieren!");
             }
+            // x-Fälle (Löschsätze): REF-XML ist optional, kein Check
         }
     }
 }
